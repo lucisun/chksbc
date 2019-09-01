@@ -10,6 +10,7 @@ import re
 # set to enabled for data to be present 
 # syslog-on-demote-to-deny
 # syslog-on-demote-to-untrusted
+# (can also enable as traps)
 # NOTE that demotion count (any dictionary count output is
 # divided by 2 as in acmelog, the relevant message is 
 # output 2 times
