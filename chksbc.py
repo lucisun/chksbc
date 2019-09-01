@@ -18,6 +18,9 @@ from chk_sip_grey_list import check_acmelogs_demotions
 from chk_sip_cpu import *
 
 
+############################################################
+# for menu selection - return an integer
+############################################################
 def enterInt():
     sum = 0;
     try:
