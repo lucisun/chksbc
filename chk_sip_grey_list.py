@@ -7,7 +7,7 @@ import re
 # check all acmelog log files for demotions
 # create a dictionary of counts
 # Note that the below 2 paramaters in media-manager must be 
-# set to enabled for data to be present 
+# set to enabled for data to be present in any logging
 # syslog-on-demote-to-deny
 # syslog-on-demote-to-untrusted
 # (can also enable as traps)

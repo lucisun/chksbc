@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 ##################################################################
 # check_sipd_logs
-#  go thru each sipd log in cur dir and search for line with cpu
+#  go thru each sipd log in cur dir and search for relevant line with cpu
 #  add cpu and date list and then graph
 ###################################################################
 def check_sipd_logs_cpu(currDir,writeDir,currYear):
@@ -77,5 +77,6 @@ def check_sipd_logs_cpu(currDir,writeDir,currYear):
 
 def main():
     print("module only")
+
 if __name__=='__main__':
     main()

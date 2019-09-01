@@ -43,7 +43,7 @@ def cls():
    os.system(['clear','cls'][os.name == 'linux'])
  
 ###########################################
-# MENU
+# MENU - get user choice
 ###########################################
 def menu():
     cls()
@@ -54,9 +54,6 @@ def menu():
     timenow = strftime("%Y%m%d%H%M%S", gmtime())
     yearnow = strftime("%Y",gmtime())
     
-    #chk_sip_grey_list.check_acmelogs_demotions(mydir)
-
-
     while (myInt != count):
         print("1.Check acmelog for demotions (note that sbc must have had syslog-on-demote-to-deny and untrusted enabled")
         print("2. Check sipd logs for cpu")
