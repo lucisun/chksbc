@@ -34,7 +34,7 @@ def check_sipd_logs_SES(currDir):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjSES = re.search(r'\[SIP].*SES\[',line)
+                searchObjSES = re.search(r'\[SIP].*\sSES\[',line)
                 if searchObjSES:
                     SESLine=line.split()
                     #print SESLine
@@ -105,7 +105,7 @@ def check_sipd_logs_ST(currDir):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjST = re.search(r'\[SIP].*ST\[',line)
+                searchObjST = re.search(r'\[SIP].*\sST\[',line)
                 if searchObjST:
                     STLine=line.split()
                     #print STLine
@@ -182,7 +182,7 @@ def check_sipd_logs_CT(currDir):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjCT = re.search(r'\[SIP].*CT\[',line)
+                searchObjCT = re.search(r'\[SIP].*\sCT\[',line)
                 if searchObjCT:
                     CTLine=line.split()
                     #print CTLine
