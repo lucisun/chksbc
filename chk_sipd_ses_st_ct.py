@@ -34,7 +34,7 @@ def check_sipd_logs_SES(currDir):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjSES = re.search(r'\[SIP].*\sSES\[',line)
+                searchObjSES = re.search(r'\[SIP].*SES\[',line)
                 if searchObjSES:
                     SESLine=line.split()
                     #print SESLine
@@ -59,15 +59,15 @@ def check_sipd_logs_SES(currDir):
                         sesTrans = int(sesTrans)
                         #print(dateHour),
                         #print(servTrans)
-                        sesDict[dateHour] += sesTrans
+                        sesDict[datetimeStamp] += sesTrans
                         dateTimeList.append(datetimeStamp)
                         sesCountList.append(sesTrans)
                     sesLines+=1
 
     if sesLines > 0:
         for key in sorted(sesDict.keys()):
-            print("SESSIONS AT (MMDDHR): %s: %s" % (key,sesDict[key]))
-            sesFile.write("Sessions at (MonDDHHMM): %s: %s" % (key,sesDict[key]))
+            print("SESSIONS AT : %s: %s" % (key,sesDict[key]))
+            sesFile.write("Sessions at : %s: %s" % (key,sesDict[key]))
             sesFile.write("\n")
     else:
         print("NO LINES WITH SES FOUND!")
@@ -105,7 +105,7 @@ def check_sipd_logs_ST(currDir):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjST = re.search(r'\[SIP].*\sST\[',line)
+                searchObjST = re.search(r'\[SIP].*ST\[',line)
                 if searchObjST:
                     STLine=line.split()
                     #print STLine
@@ -131,15 +131,15 @@ def check_sipd_logs_ST(currDir):
                         #print(servTrans)
                         servTrans = int(servTrans)
                         #print(servTrans)
-                        stDict[dateHour] += servTrans
+                        stDict[datetimeStamp] += servTrans
                         #dateTime = STLine[0] + "-" + STLine[1] + " " + STLine[2]
                         #print(dateTime)
                         dateTimeList.append(datetimeStamp)
                         servCountList.append(servTrans)
 
     for key in sorted(stDict.keys()):
-        print("Serv Trans at MonDDHHMM: %s: %s" % (key,stDict[key]))
-        stFile.write("Serv Trans at (MonDDHHMM): %s: %s" % (key,stDict[key]))
+        print("Serv Trans at : %s: %s" % (key,stDict[key]))
+        stFile.write("Serv Trans at: %s: %s" % (key,stDict[key]))
         stFile.write("\n")
     #    if int(stDict[key]) > 60:
     #        stPerMin = int(stDict[key]) / 60
@@ -182,7 +182,7 @@ def check_sipd_logs_CT(currDir):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjCT = re.search(r'\[SIP].*\sCT\[',line)
+                searchObjCT = re.search(r'\[SIP].*CT\[',line)
                 if searchObjCT:
                     CTLine=line.split()
                     #print CTLine
@@ -213,15 +213,15 @@ def check_sipd_logs_CT(currDir):
                             clientTrans = int(clientTrans)
                             #print(dateHour),
                             print(clientTrans)
-                            ctDict[dateHour] += clientTrans
+                            ctDict[datetimeStamp] += clientTrans
                             dateTimeList.append(datetimeStamp)
                             clientCountList.append(clientTrans)
                     else:
                         continue
 
     for key in sorted(ctDict.keys()):
-    #    print("Client trans at MMDDHR: %s: %s" % (key,ctDict[key]))
-        ctFile.write("Client Trans at (MonDDHHMM): %s: %s" % (key,ctDict[key]))
+        print("Client trans at MMDDHR: %s: %s" % (key,ctDict[key]))
+        ctFile.write("Client Trans at: %s: %s" % (key,ctDict[key]))
         ctFile.write("\n")
     #print("length of dateTimeList: ", len(dateTimeList))
     #print("length of clientCountList: ", len(clientCountList))
