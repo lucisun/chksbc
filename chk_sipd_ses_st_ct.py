@@ -67,7 +67,7 @@ def check_sipd_logs_SES(currDir):
     if sesLines > 0:
         for key in sorted(sesDict.keys()):
             print("SESSIONS AT : %s: %s" % (key,sesDict[key]))
-            sesFile.write("Sessions at : %s: %s" % (key,sesDict[key]))
+            sesFile.write("Sessions at: %s: %s" % (key,sesDict[key]))
             sesFile.write("\n")
     else:
         print("NO LINES WITH SES FOUND!")
@@ -91,6 +91,7 @@ def check_sipd_logs_SES(currDir):
 
 def check_sipd_logs_ST(currDir):
     #monthDict = { "Jan": "01", "Feb": "02","Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12" }
+    print("check_sipd_logs_ST ")
     stFile = open('STRANS.txt','w')
     siplogstring=""
     siploglist=list()
@@ -105,10 +106,10 @@ def check_sipd_logs_ST(currDir):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjST = re.search(r'\[SIP].*ST\[',line)
+                searchObjST = re.search(r'\[SIP].*ST\[.*T=',line)
                 if searchObjST:
                     STLine=line.split()
-                    #print STLine
+                    #print(STLine)
                     stMonth = int(monthDict[STLine[0]])
                     stDay = int(STLine[1])
                     timeStr = STLine[2].split(":")
@@ -124,7 +125,7 @@ def check_sipd_logs_ST(currDir):
                     stTime = stHour + stMin + stSec
                     #print(dateHour),
                     getSTcount = STLine[5].split("=")
-                    #print(getSTcount)
+                    #print("getSTcount: ", getSTcount)
                     if "/" in getSTcount[1]:
                         servTransSplit = getSTcount[1].split("/")
                         servTrans = servTransSplit[0]
@@ -139,7 +140,7 @@ def check_sipd_logs_ST(currDir):
 
     for key in sorted(stDict.keys()):
         print("Serv Trans at : %s: %s" % (key,stDict[key]))
-        stFile.write("Serv Trans at: %s: %s" % (key,stDict[key]))
+        stFile.write("Serv Trans at : %s: %s" % (key,stDict[key]))
         stFile.write("\n")
     #    if int(stDict[key]) > 60:
     #        stPerMin = int(stDict[key]) / 60
@@ -200,7 +201,7 @@ def check_sipd_logs_CT(currDir):
                     datetimeStamp = datetime(year,stMonth,stDay,stHour,stMin,stSec)
                     print("datetimeStamp: ")
                     print(datetimeStamp)
-                    #print("dateHour: ", dateHour)
+                    print("dateHour: ", dateHour)
                     getCTcount = CTLine[5].split("=")
                     print("getCTcount: ", getCTcount)
                     #print("getCTcount: ",getCTcount)
@@ -211,8 +212,9 @@ def check_sipd_logs_CT(currDir):
                             clientTransSplit = getCTcount[1].split("/")
                             clientTrans = clientTransSplit[0]
                             clientTrans = int(clientTrans)
-                            #print(dateHour),
+                            #print("dateHour: ", dateHour),
                             print(clientTrans)
+                            #ctDict[dateHour] += clientTrans
                             ctDict[datetimeStamp] += clientTrans
                             dateTimeList.append(datetimeStamp)
                             clientCountList.append(clientTrans)
@@ -220,8 +222,8 @@ def check_sipd_logs_CT(currDir):
                         continue
 
     for key in sorted(ctDict.keys()):
-        print("Client trans at MMDDHR: %s: %s" % (key,ctDict[key]))
-        ctFile.write("Client Trans at: %s: %s" % (key,ctDict[key]))
+    #    print("Client trans at MMDDHR: %s: %s" % (key,ctDict[key]))
+        ctFile.write("Client Trans at  %s: %s" % (key,ctDict[key]))
         ctFile.write("\n")
     #print("length of dateTimeList: ", len(dateTimeList))
     #print("length of clientCountList: ", len(clientCountList))

@@ -26,34 +26,42 @@ def check_sipd_logs_cpu(currDir,writeDir,currYear):
             currFile = open(file,'r')
             currFileLines = currFile.readlines()
             for line in currFileLines:
-                searchObjCPU = re.search(r'\[SIP\] (0) CPU=.*cur=',line)
+                #searchObjCPU = re.search(r'\[SIP\] (0) CPU=.*cur=',line)
+                #searchObjCPU = re.search(r'\s\scur=.*avg',line)
+                searchObjCPU = re.search(r'CPU.*cur=.*avg',line)
                 #searchObjCPU = re.search(r'\[SIP\].*CPU=.*cur=',line)
                 #searchObjCPU = re.search(r'\[SIP\]\s+.0.\s+cur=',line)
 
                 if searchObjCPU:
                     cpuLine = line.split()
+                    print(cpuLine)
                     #print(cpuLine)
                     cpuStrList = cpuLine[6].split('=')
-                    #print(cpuStrList)
-                    currCPU = cpuStrList[1]
-                    if len(currCPU) > 2:
-                        gt2count=+1
-                        continue
+                    print("cpuStrList: ", cpuStrList)
+                    if cpuStrList[0] == "cur":
+                        currCPU = cpuStrList[1]
                     else:
-                        #print(currCPU)
-                        dateTime = cpuLine[0] + " " + cpuLine[1] + " " + cpuLine[2]
-                        dateTimeSplit = dateTime.split(".")
-                        dateString = str(dateTimeSplit[0])
-                        #print("dateString: ",dateString)
-                        dateStringII = currYear + " " + dateString
-                        #print("dateStringII: ",dateStringII)
-                        currDateTime = datetime.strptime(dateStringII,"%Y %b %d %H:%M:%S")
-                        #print(currDateTime)
-                        currCPU = int(currCPU)
-                        #print(type(currCPU))
-                        if(currCPU) > 1:
-                            cpus.append(currCPU)
-                            dates.append(currDateTime)
+                        continue
+                    print(currCPU)
+                    #if len(currCPU) > 2:
+                        #gt2count=+1
+                    #    continue
+                    #else:
+                    #print(currCPU)
+                    dateTime = cpuLine[0] + " " + cpuLine[1] + " " + cpuLine[2]
+                    dateTimeSplit = dateTime.split(".")
+                    dateString = str(dateTimeSplit[0])
+                    #print("dateString: ",dateString)
+                    dateStringII = currYear + " " + dateString
+                    #print("dateStringII: ",dateStringII)
+                    currDateTime = datetime.strptime(dateStringII,"%Y %b %d %H:%M:%S")
+                    #print(currDateTime)
+                    currCPU = float(currCPU)
+                    #print(type(currCPU))
+                    if(currCPU) > 0.0:
+                        cpus.append(currCPU)
+                        dates.append(currDateTime)
+    #print("cpus: ", cpus)
     zipped = zip(cpus,dates)
     #print(zipped)
     z2 = sorted(zipped, key = lambda x: x[1],reverse=False)
@@ -64,6 +72,9 @@ def check_sipd_logs_cpu(currDir,writeDir,currYear):
         print(c,d)
         newcpu.append(c)
         newdate.append(d)
+
+    print(newcpu)
+    #print(newdate)
 
     fig,ax = plt.subplots()
     ax.plot(newdate,newcpu,color='red')
